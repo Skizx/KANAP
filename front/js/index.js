@@ -9,6 +9,7 @@ fetch('http://localhost:3000/api/products')
     // les données contenues dans ma fonction showProducts :
   .then(data => { 
     createProducts(data);
+    //console.log(data) vérification de la liste des produits récupérer
   })
   // j'ajoute un message au cas où le serveur ne répond pas
   .catch(_error => {
