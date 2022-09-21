@@ -33,11 +33,11 @@ fetch("http://localhost:3000/api/products/" + newID)
     description.innerText = `${data.description}`;
 
     // je configure le choix des couleurs 
-    for (number in data.colors) {
-      colors.options[colors.options.length] = new Option(
-        data.colors[number],
-        data.colors[number]
-      );
+    for (let i=0; i < data.colors.length; i++) {
+      let color = document.createElement("option");
+      color.setAttribute("value", data.colors[i]);
+      color.innerHTML = data.colors[i];
+      colors.appendChild(color);
     }
   })
     // j'ajoute un message au cas où le serveur ne répond pas

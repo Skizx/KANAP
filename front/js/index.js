@@ -6,7 +6,7 @@ fetch('http://localhost:3000/api/products')
     // en la transformant en json pour faciliter l'intérprétation par le navigateur :
   .then(res => res.json())
     // deuxième promesse .then qui va afficher (en online)
-    // les données contenues dans ma fonction showProducts :
+    // les données contenues dans ma fonction createProducts :
   .then(data => { 
     createProducts(data);
     //console.log(data) vérification de la liste des produits
