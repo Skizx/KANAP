@@ -35,12 +35,28 @@ fetch("http://localhost:3000/api/products/" + newID)
     // je configure le choix des couleurs 
     for (let i=0; i < data.colors.length; i++) {
       let color = document.createElement("option");
+      //je modifie la valeur avec les données des couleurs
       color.setAttribute("value", data.colors[i]);
+      //je modifie le contenu HTML en lui donnant les données des couleurs
       color.innerHTML = data.colors[i];
+      //je deplace le contenu précédent a l'emplacement de ma variable colors
       colors.appendChild(color);
     }
   })
     // j'ajoute un message au cas où le serveur ne répond pas
   .catch(_error => {
     alert('Oops ! Le serveur ne répond pas');
+  });
+
+  //je selectionne les données choisit par l'utilisateur
+  const addColors = document.getElementById('colors');
+  const addQuantity = document.getElementById('quantity');
+
+  //je configure un eventListener quand l'utilisateur clique sur ajouter au panier
+  const addToCart = document.getElementById('addToCart');
+  console.log(addToCart);
+  addToCart.addEventListener('click', function(e) {
+    //je desactive l'evenement par défault (href = page du panier)
+    e.preventDefault();
+    console.log(e);
   });
