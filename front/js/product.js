@@ -47,7 +47,7 @@ fetch("http://localhost:3000/api/products/" + newID)
   .catch(_error => {
     alert('Oops ! Le serveur ne répond pas');
   });
-
+  
   //je configure un eventListener quand l'utilisateur clique sur ajouter au panier
   const addToCart = document.getElementById('addToCart');
   //console.log(addToCart);
@@ -56,12 +56,19 @@ fetch("http://localhost:3000/api/products/" + newID)
       //je desactive l'evenement par défault (href = page du panier)
       e.preventDefault(); {
         console.log(e);
-      //je recupere les donnees par rapport au choix de l'utilisateur
-      const addColors = document.getElementById('colors').value;
-      const addQuantity = document.getElementById('quantity').value;
+        //je recupere les donnees par rapport au choix de l'utilisateur
+        const addColors = document.getElementById('colors').value;
+        const addQuantity = document.getElementById('quantity').value;
       //si l'utilisateur ne choisit pas de couleur ou de quantité alors il aura une alerte
       if (addColors == null || addColors === "" || addQuantity == null || addQuantity == 0)
       alert("Veuillez ajoutez une couleur ainsi qu'une quantité")
+      const selection = {
+        id: newID,
+        color: addColors,
+        quantity: addQuantity,
+      }
+      localStorage.setItem(newID, JSON.stringify(selection));
+      window.location.href = "cart.html";
       }
     });
 
