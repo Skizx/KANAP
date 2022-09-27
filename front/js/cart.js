@@ -57,3 +57,58 @@ else{
   itemCart.innerHTML += itemCards;
   }
 }
+
+//je modifie la quantité des produits
+function changeQuantity() {
+    let itemQuantity = document.querySelectorAll('.itemQuantity');
+    for ( let q = 0; q < itemQuantity.length; q++) {
+        itemQuantity[q].addEventListener('change', (e) => {
+            e.preventDefault();
+            //Selection de la nouvelle quantité sauvegarder dans le localStorage avec les autres éléments
+            let itemNewQuantity = itemQuantity[q].value;
+            const newLocalStorage = {
+                id: productInLocalStorage[q].id,
+                image: productInLocalStorage[q].image,
+                alt: productInLocalStorage[q].alt,
+                color: productInLocalStorage[q].color,
+                name: productInLocalStorage[q].name,
+                price: productInLocalStorage[q].price,
+                quantity: itemNewQuantity, // Nouvelle quantité
+            };
+
+            //Actualisation du localStorage avec les nouvelles données
+            productInLocalStorage[q] = newLocalStorage;
+            localStorage.setItem('product', JSON.stringify(productInLocalStorage));
+
+            alert('Votre panier est à jour.');
+        });
+    }
+}
+changeQuantity();
+
+//je supprime les produits dans le panier
+function deleteItems() {
+    const deleteItem = document.querySelectorAll('.deleteItem');
+    for ( let d = 0; d < deleteItem.length; d++) {
+        deleteItem[d].addEventListener('click', (e) => {
+            e.preventDefault();
+
+            //j'enregistre l'id et la couleur supprimer
+            let deleteId = productInLocalStorage[d].id;
+            let deleteColor = productInLocalStorage[d].color
+
+            //filtre les élements supprimer 
+            //La méthode filter() crée et retourne un nouveau tableau contenant tous les éléments du tableau d'origine 
+            //qui remplissent une condition déterminée par la fonction callback.
+            productInLocalStorage = productInLocalStorage.filter( delte => delte.id !== deleteId || delte.color !== deleteColor);
+
+            //Actualisation du localStorage avec les nouvelles données
+            localStorage.setItem('product', JSON.stringify(productInLocalStorage));
+
+            //Actualisation de la page
+            alert('Votre article a bien été supprimé.');
+            window.location.href = "cart.html";
+        });
+    }
+}
+deleteItems();
