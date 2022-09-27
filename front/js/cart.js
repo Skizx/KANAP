@@ -112,3 +112,35 @@ function deleteItems() {
     }
 }
 deleteItems();
+
+//Prix total des éléments dans le panier
+function totalPrice() {
+  const calculPrice = [];
+  for (let p = 0; p < productInLocalStorage.length; p++) {
+    //prix du produits x la quantité du produit
+    const priceBasket = productInLocalStorage[p].price * productInLocalStorage[p].quantity;
+    calculPrice.push(priceBasket);
+
+    //method reduce permet de créer une boucle et de garder en memoire le resultat des opérations
+    const sumPrice = (sum, currentPrice) => sum + currentPrice;
+    total = calculPrice.reduce(sumPrice);
+    
+    const totalBasketPrice = document.getElementById('totalPrice');
+    totalBasketPrice.textContent = total;
+  }
+}
+totalPrice();
+
+//Nombres total de produits
+function totalProducts() {
+  let totalArticles = 0;
+  for ( let a = 0; a < productInLocalStorage.length; a++) {
+   const productQuantity = parseInt(productInLocalStorage[a].quantity, 10);
+ 
+   totalArticles += productQuantity;
+ 
+   const totalQuantity = document.getElementById('totalQuantity');
+   totalQuantity.textContent = totalArticles;
+  }
+ }
+totalProducts();
