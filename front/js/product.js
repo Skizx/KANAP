@@ -74,10 +74,19 @@ fetch("http://localhost:3000/api/products/" + newID)
     // j'ajoute les produits sélectionnés dans le localStorage
     const addProductLocalStorage = () => {
     // je récupère la sélection de l'utilisateur dans le tableau de l'objet :
+<<<<<<< HEAD
+=======
+    // on peut voir dans la console qu'il y a les données,
+    // mais pas encore stockées dans le storage à ce stade
+>>>>>>> 2f972743675eda8039155f32cf40b39b0d59640a
   
     productInLocalStorage.push(selection);
     // je stocke les données récupérées dans le localStorage :
     // JSON.stringify permet de convertir les données au format JavaScript en JSON 
+<<<<<<< HEAD
+=======
+    // vérifier que key et value dans l'inspecteur contiennent bien des données
+>>>>>>> 2f972743675eda8039155f32cf40b39b0d59640a
     localStorage.setItem('product', JSON.stringify(productInLocalStorage));
     }
   
@@ -85,11 +94,16 @@ fetch("http://localhost:3000/api/products/" + newID)
     let addConfirm = () => {
       alert('Le produit a bien été ajouté au panier');
     }
+<<<<<<< HEAD
     
+=======
+  
+>>>>>>> 2f972743675eda8039155f32cf40b39b0d59640a
     let update = false;
     
     // s'il y a des produits enregistrés dans le localStorage
     if (productInLocalStorage) {
+<<<<<<< HEAD
       // verifier que le produit ne soit pas deja dans le localstorage/panier
       // avec la couleur
       productInLocalStorage.forEach (function (productOk, key) {
@@ -106,6 +120,24 @@ fetch("http://localhost:3000/api/products/" + newID)
         addProductLocalStorage();
         addConfirm();
       }
+=======
+    // verifier que le produit ne soit pas deja dans le localstorage/panier
+    // avec la couleur
+     productInLocalStorage.forEach (function (productOk, key) {
+      if (productOk.id == newID && productOk.color == selectColors.value) {
+        productInLocalStorage[key].quantity = parseInt(productOk.quantity) + parseInt(selectQuantity.value);
+        localStorage.setItem('product', JSON.stringify(productInLocalStorage));
+        update = true;
+        addConfirm();
+      }
+    });
+  
+    //
+      if (!update) {
+      addProductLocalStorage();
+      addConfirm();
+      }
+>>>>>>> 2f972743675eda8039155f32cf40b39b0d59640a
     }
   
     // s'il n'y a aucun produit enregistré dans le localStorage 
