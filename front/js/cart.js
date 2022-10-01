@@ -239,6 +239,32 @@ function postForm() {
       }
     }
     validControl();
-  });
+
+
+    const objet = {
+      contact,
+      products,
+    }
+  
+    //Envoie de l'objet vers le serveur
+    const options = {
+      method: "POST",
+      body: JSON.stringify(objet),
+      headers: {
+        "Content-Type" : "application/json",
+        }
+      };
+
+      fetch("http://localhost:3000/api/products/order", options)
+        .then(response => response.json())
+        .then(data => {
+        localStorage.setItem('orderId', data.orderId);
+        if (validControl()) {
+          document.location.href = 'confirmation.html?id='+ data.orderId;
+        }
+      });
+
+  }); //fin de l'eventListener
 }
+// envoi du formulaire
 postForm();
