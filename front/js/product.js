@@ -43,7 +43,7 @@ fetch("http://localhost:3000/api/products/" + newID)
       colors.appendChild(color);
     }
   })
-    // j'ajoute un message au cas où le serveur ne répond pas
+  // j'ajoute un message au cas où le serveur ne répond pas
   .catch(_error => {
     alert('Oops ! Le serveur ne répond pas');
   });
@@ -55,7 +55,7 @@ fetch("http://localhost:3000/api/products/" + newID)
   const addToCart = document.getElementById('addToCart');
   addToCart.addEventListener('click', (event) => {
     event.preventDefault();
-  
+    
     const selection = {
       id: newID,
       image: imageURL,
@@ -65,7 +65,12 @@ fetch("http://localhost:3000/api/products/" + newID)
       color: selectColors.value,
       quantity: selectQuantity.value,
     };
-  
+
+    // si l'utilisateur ne choisis pas de couleur ni de quantité je lui retourne une alerte
+    if (selectColors.value <= null || selectQuantity.value <= null || selectColors.value <= 0 || selectQuantity.value <= 0) {
+      return alert('Veuillez choisir une couleur et selectionner un nombre.')
+    }
+    
     // je déclare une variable productInLocalStorage 
     // dans laquelle je mets les clés+valeurs dans le localStorage
     // JSON.parse permet de convertir les données au format JSON en objet JavaScript
@@ -84,10 +89,10 @@ fetch("http://localhost:3000/api/products/" + newID)
     // vérifier que key et value dans l'inspecteur contiennent bien des données
     localStorage.setItem('product', JSON.stringify(productInLocalStorage));
     }
-  
+
     // je crée une boîte de dialogue pour confirmer l'ajout au panier
     let addConfirm = () => {
-      alert('Le produit a bien été ajouté au panier');
+      alert('Le '+selection.name+' de couleur '+selection.color+' en '+selection.quantity+' exemplaire(s) a bien été ajouté au panier.');
     }
 
     let update = false;
@@ -105,23 +110,6 @@ fetch("http://localhost:3000/api/products/" + newID)
           addConfirm();
         }
       });
-      
-      //
-      if (!update) {
-        addProductLocalStorage();
-        addConfirm();
-      }
-
-    // verifier que le produit ne soit pas deja dans le localstorage/panier
-    // avec la couleur
-     productInLocalStorage.forEach (function (productOk, key) {
-      if (productOk.id == newID && productOk.color == selectColors.value) {
-        productInLocalStorage[key].quantity = parseInt(productOk.quantity) + parseInt(selectQuantity.value);
-        localStorage.setItem('product', JSON.stringify(productInLocalStorage));
-        update = true;
-        addConfirm();
-      }
-    });
   
     //
       if (!update) {

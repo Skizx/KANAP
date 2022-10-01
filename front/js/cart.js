@@ -81,7 +81,6 @@ function changeQuantity() {
             localStorage.setItem('product', JSON.stringify(productInLocalStorage));
 
             //Actualisation de la page + prix total
-            alert('Votre panier est à jour.');
             location.reload();
         });
     }
@@ -108,7 +107,6 @@ function deleteItems() {
             localStorage.setItem('product', JSON.stringify(productInLocalStorage));
 
             //Actualisation de la page
-            alert('Votre article a bien été supprimé.');
             window.location.href = "cart.html";
         });
     }
@@ -123,7 +121,7 @@ function totalPrice() {
     const priceBasket = productInLocalStorage[p].price * productInLocalStorage[p].quantity;
     calculPrice.push(priceBasket);
 
-    //method reduce permet de créer une boucle et de garder en memoire le resultat des opérations
+    //methode reduce permet de créer une boucle et de garder en memoire le resultat des opérations
     const sumPrice = (sum, currentPrice) => sum + currentPrice;
     total = calculPrice.reduce(sumPrice);
     
