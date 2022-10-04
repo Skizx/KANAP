@@ -1,8 +1,8 @@
 // RECUPERER LES PRODUITS STOCKES DANS LE LOCALSTORAGE   //
 let products = [];
-//console.log(products) Affiche les id des produits dans un tableau
+console.log(products) //Affiche les id des produits dans un tableau
 let productInLocalStorage = JSON.parse(localStorage.getItem('product'));
-//console.log(productInLocalStorage) Affiche toute les informations des produits dans le panier
+console.log(productInLocalStorage) //Affiche toute les informations des produits dans le panier
 
 // AFFICHER LES PRODUITS DU PANIER
 
@@ -19,38 +19,39 @@ if(productInLocalStorage === null || productInLocalStorage == 0) {
 // si le panier n'est pas vide : afficher les produits dans le localStorage
 else{
   let itemCards = [];
- 
+  
   // expression initiale; condition; incrémentation
   for (i = 0; i < productInLocalStorage.length; i++) {
-  products.push(productInLocalStorage[i].id);
- 
-  // le code suivant sera injecté à chaque tour de boucle
-  // selon la longueur des produits dans le local storage
-  itemCards = itemCards + `
+    products.push(productInLocalStorage[i].id);
+    
+    // le code suivant sera injecté à chaque tour de boucle
+    // selon la longueur des produits dans le local storage
+    itemCards = itemCards + `
     
     <article class="cart__item" data-id="${productInLocalStorage[i].id}" data-color="${productInLocalStorage.color}">
     <div class="cart__item__img">
-      <img src="${productInLocalStorage[i].image}" alt="${productInLocalStorage[i].alt}">
+    <img src="${productInLocalStorage[i].image}" alt="${productInLocalStorage[i].alt}">
     </div>
     <div class="cart__item__content">
-      <div class="cart__item__content__titlePrice">
-        <h2>${productInLocalStorage[i].name}</h2>
-        <p>${productInLocalStorage[i].color}</p>
-        <p>${productInLocalStorage[i].price} €</p>
-      </div>
-      <div class="cart__item__content__settings">
-        <div class="cart__item__content__settings__quantity">
-          <p>Qté : </p>
-          <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${productInLocalStorage[i].quantity}">
-        </div>
-        <div class="cart__item__content__settings__delete">
-          <p class="deleteItem">Supprimer</p>
-        </div>
-      </div>
+    <div class="cart__item__content__titlePrice">
+    <h2>${productInLocalStorage[i].name}</h2>
+    <p>${productInLocalStorage[i].color}</p>
+    <p>${productInLocalStorage[i].price} €</p>
     </div>
-  </article>
+    <div class="cart__item__content__settings">
+    <div class="cart__item__content__settings__quantity">
+    <p>Qté : </p>
+    <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="${productInLocalStorage[i].quantity}">
+    </div>
+    <div class="cart__item__content__settings__delete">
+    <p class="deleteItem">Supprimer</p>
+    </div>
+    </div>
+    </div>
+    </article>
     `;
   }
+  //console.log(itemCards);
   if (i === productInLocalStorage.length) {
     //trouver l'element #cart__items dans cart.html
   const itemCart = document.getElementById('cart__items');
@@ -165,13 +166,15 @@ function postForm() {
     //Controle du champ de saisie du prenom
     function controlFirstName() {
       const validFirstName = contact.firstName;
+      //Un objet RegExp est utilisé pour étudier les correspondances d'un texte avec un motif donné.
       let firstNameRgex = /^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{3,20}$/;
+      //La méthode test() vérifie s'il y a une correspondance entre un texte et une expression rationnelle. 
       let firstNameResult = firstNameRgex.test(validFirstName);
       if ( firstNameResult == true) {
         return true
       } else {
         let firstNameErrorMsg = document.getElementById('firstNameErrorMsg');
-        firstNameErrorMsg.innerText = "Veuillez vérifier que le prénom choisit soit correct";
+        firstNameErrorMsg.innerText = "Le prenom choisit n'est pas correct";
       }
     }
     
@@ -197,7 +200,7 @@ function postForm() {
         return true
       } else {
         let addressErrorMsg = document.getElementById('addressErrorMsg');
-        addressErrorMsg.innerText = "Merci de vérifier que l'adresse existe bien"
+        addressErrorMsg.innerText = "L'adresse n'est pas valide"
       }
     }
 
@@ -210,7 +213,7 @@ function postForm() {
         return true
       } else {
         let cityErrorMsg = document.getElementById('cityErrorMsg');
-        cityErrorMsg.innerText = "Veuillez vérifier que la ville choisis existe"
+        cityErrorMsg.innerText = "Le nom de la ville n'est pas valide"
       }
     }
 
@@ -223,7 +226,7 @@ function postForm() {
         return true
       } else {
         let emailErrorMsg = document.getElementById('emailErrorMsg');
-        emailErrorMsg.innerText = "Veuillez rentrer une addresse email valide"
+        emailErrorMsg.innerText = "Veuillez verifier que l'adresse email soit bien valide"
       }
     }
 
@@ -233,7 +236,7 @@ function postForm() {
         localStorage.setItem('contact', JSON.stringify(contact));
         return true
       } else {
-        alert('Les informations du formulaire ne sont pas valide, veuillez ressayer')
+        alert('Certaines informations du formulaire ne sont pas valide')
       }
     }
     validControl();
