@@ -67,6 +67,10 @@ function changeQuantity() {
             e.preventDefault();
             //Selection de la nouvelle quantité sauvegarder dans le localStorage avec les autres éléments
             let itemNewQuantity = itemQuantity[q].value;
+            // Si l'utilisateur indique une valeur négative il aura alors une alerte aisni que le rechargement de la page
+            if (itemNewQuantity <= 0) {
+              return alert('Veuillez verifier la quantité choisis') + location.reload()
+            };
             const newLocalStorage = {
                 id: productInLocalStorage[q].id,
                 image: productInLocalStorage[q].image,
@@ -155,6 +159,7 @@ function postForm() {
     e.preventDefault();
 
     // je récupère les données du formulaire dans un objet
+    // Selon les commentaires laissez par le dev back-end !
     const contact = {
       firstName : document.getElementById('firstName').value,
       lastName : document.getElementById('lastName').value,
@@ -256,13 +261,14 @@ function postForm() {
         }
       };
 
+      // Route menant au serveur '/order' 
       fetch("http://localhost:3000/api/products/order", options)
         .then(response => response.json())
         .then(data => {
         localStorage.setItem('orderId', data.orderId);
-        if (validControl()) {
+        /*if (validControl()) {
           document.location.href = 'confirmation.html?id='+ data.orderId;
-        }
+        }*/
       });
 
   }); //fin de l'eventListener
