@@ -1,9 +1,7 @@
 //---------JE REDIRIGE L'URL DE L'API---------
 
 // je crée une nouvelle url à partir de l'url actuelle 
-// et en ajoutant searchParams pour manipuler les paramètres de requête d'URL :
 let params = new URL(window.location.href).searchParams;
-// j'indique que la nouvelle url sera ajoutée d'un id :
 let newID = params.get('id');
 console.log(newID) // vérification de l'id
 
@@ -23,8 +21,7 @@ let imageAlt = "";
 fetch("http://localhost:3000/api/products/" + newID)
   .then(res => res.json())
   .then(data => {
-    console.log(data) // vérification contenu des informations du produit
-    // je modifie le contenu de chaque variable avec les bonnes données :
+    //console.log(data) // vérification contenu des informations du produit
     image[0].innerHTML = `<img src="${data.imageUrl}" alt="${data.altTxt}">`;
     imageURL = data.imageUrl;
     imageAlt = data.altTxt;
@@ -62,7 +59,7 @@ fetch("http://localhost:3000/api/products/" + newID)
       image: imageURL,
       alt: imageAlt,
       name: title.textContent,
-      price: price.textContent,
+      //price: price.textContent,
       color: selectColors.value,
       quantity: selectQuantity.value,
     };
@@ -75,7 +72,7 @@ fetch("http://localhost:3000/api/products/" + newID)
     // je déclare une variable productInLocalStorage 
     // dans laquelle je mets les clés+valeurs dans le localStorage
     // JSON.parse permet de convertir les données au format JSON en objet JavaScript
-    let productInLocalStorage =  JSON.parse(localStorage.getItem('product'));
+    let productInLocalStorage =  JSON.parse(localStorage.getItem('basket'));
     
     // j'ajoute les produits sélectionnés dans le localStorage
     const addProductLocalStorage = () => {
@@ -88,7 +85,7 @@ fetch("http://localhost:3000/api/products/" + newID)
       // JSON.stringify permet de convertir les données au format JavaScript en JSON 
       
       // vérifier que key et value dans l'inspecteur contiennent bien des données
-      localStorage.setItem('product', JSON.stringify(productInLocalStorage));
+      localStorage.setItem('basket', JSON.stringify(productInLocalStorage));
     }
     
     // je crée une boîte de dialogue pour confirmer l'ajout au panier
@@ -106,7 +103,7 @@ fetch("http://localhost:3000/api/products/" + newID)
       productInLocalStorage.forEach (function (productOk, key) {
         if (productOk.id == newID && productOk.color == selectColors.value) {
           productInLocalStorage[key].quantity = parseInt(productOk.quantity) + parseInt(selectQuantity.value);
-          localStorage.setItem('product', JSON.stringify(productInLocalStorage));
+          localStorage.setItem('basket', JSON.stringify(productInLocalStorage));
           update = true;
           addConfirm();
         }

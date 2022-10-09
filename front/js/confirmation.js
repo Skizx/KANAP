@@ -7,3 +7,5 @@ console.log(newID)
 
 const orderId = document.getElementById('orderId');
 orderId.innerHTML = newID;
+
+localStorage.clear();
