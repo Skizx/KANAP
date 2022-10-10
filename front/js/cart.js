@@ -1,11 +1,10 @@
-// Récupération du contenu du panier à partir du localstorage
+//------------- Récupération du contenu du panier à partir du localstorage --------------
 let basketStr = localStorage.getItem('basket');
-var basket = JSON.parse(basketStr);
+let basket = JSON.parse(basketStr);
 
-// Récupération de l'élement "cart__items"
 const cartPanel = document.querySelector('#cart__items');
 
-// Affichage des produits dans la page panier (avec les prix en fetch)
+//------------ Affichage des produits dans la page panier (avec les prix en fetch) ------------------
 function showProductBasket(produit) {
     // AFFICHAGE DU/DES PRODUIT(S) PANIER
     // création des conteneurs HTML, insertion des articles
@@ -106,7 +105,7 @@ async function getProduct(id) {
 // SI le panier est vide, afficher "panier vide" 
 // SINON parser le panier, et utiliser la function showproductbasket 
 async function showCart() {
-    if (basketStr == null || basketStr == undefined || basketStr === "") {
+    if (basket.length == null || basket.length == undefined || basket.length == 0){
         let createpEmpty = document.createElement('p');
         createpEmpty.textContent = 'Votre panier est vide';
         cartPanel.appendChild(createpEmpty);
@@ -174,15 +173,13 @@ function deleteItems() {
             let deleteColor = basket[d].color
 
             //filtre les élements supprimer 
-            //La méthode filter() crée et retourne un nouveau tableau contenant tous les éléments du tableau d'origine 
-            //qui remplissent une condition déterminée par la fonction callback.
             basket = basket.filter( delte => delte.id !== deleteId || delte.color !== deleteColor);
 
             //Actualisation du localStorage avec les nouvelles données
             localStorage.setItem('basket', JSON.stringify(basket));
 
             //Actualisation de la page
-            window.location.href = "cart.html";
+            location.reload();
         });
     }
 }
@@ -284,6 +281,11 @@ function postForm() {
           emailErrorMsg.innerText = "Veuillez verifier que l'adresse email soit bien valide"
         }
       }
+
+      if (basket.length == null || basket.length == undefined || basket.length == 0) {
+        alert("Pour passer commande, veuillez ajouter des produits à votre panier");
+        e.preventDefault();
+      }
   
       //j'envoie l'objet contact ou sont receuillis les données remplis du formulaire dans le localStorage
       function validControl() {
@@ -294,7 +296,6 @@ function postForm() {
           alert('Certaines informations du formulaire ne sont pas valide')
         }
       }
-      validControl();
 
 
     //Construction d'un array d'id depuis le local storage

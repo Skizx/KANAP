@@ -3,7 +3,7 @@
 // je crée une nouvelle url à partir de l'url actuelle 
 let params = new URL(window.location.href).searchParams;
 let newID = params.get('id');
-console.log(newID) // vérification de l'id
+//console.log(newID) // vérification de l'id
 
 //---------J'APPELLE DE NOUVEAU L'API AVEC L'ID DU CANAPE CHOISI---------
 
@@ -65,25 +65,21 @@ fetch("http://localhost:3000/api/products/" + newID)
     };
     
     // si l'utilisateur ne choisis pas de couleur ni de quantité je lui retourne une alerte
-    if (selectColors.value <= null || selectQuantity.value <= null || selectColors.value <= 0 || selectQuantity.value <= 0) {
+    if (selectColors.value <= null || selectQuantity.value <= null || selectColors.value <= 0 || selectQuantity.value <= 0 || selectQuantity.value >= 101) {
       return alert('Veuillez choisir une couleur et selectionner un nombre.')
     }
     
     // je déclare une variable productInLocalStorage 
     // dans laquelle je mets les clés+valeurs dans le localStorage
-    // JSON.parse permet de convertir les données au format JSON en objet JavaScript
     let productInLocalStorage =  JSON.parse(localStorage.getItem('basket'));
     
     // j'ajoute les produits sélectionnés dans le localStorage
     const addProductLocalStorage = () => {
-      // je récupère la sélection de l'utilisateur dans le tableau de l'objet :
-      // on peut voir dans la console qu'il y a les données,
-      // mais pas encore stockées dans le storage à ce stade
-      
+
+      // je récupère la sélection de l'utilisateur dans le tableau de l'objet : 
       productInLocalStorage.push(selection);
+
       // je stocke les données récupérées dans le localStorage :
-      // JSON.stringify permet de convertir les données au format JavaScript en JSON 
-      
       // vérifier que key et value dans l'inspecteur contiennent bien des données
       localStorage.setItem('basket', JSON.stringify(productInLocalStorage));
     }
